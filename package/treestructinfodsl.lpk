@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="TreeStructInfoDSL"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="..\deps\TreeStructInfo\Source;..\source"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files Count="5">
+      <Item1>
+        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoConsts.pp"/>
+        <UnitName Value="TSInfoConsts"/>
+      </Item1>
+      <Item2>
+        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoFiles.pp"/>
+        <UnitName Value="TSInfoFiles"/>
+      </Item2>
+      <Item3>
+        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoTypes.pp"/>
+        <UnitName Value="TSInfoTypes"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoUtils.pp"/>
+        <UnitName Value="TSInfoUtils"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\source\tsdsl.pas"/>
+        <UnitName Value="tsdsl"/>
+      </Item5>
+    </Files>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

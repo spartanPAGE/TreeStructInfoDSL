@@ -5,7 +5,7 @@ unit tsdsl;
 interface
 
 uses
-  Classes, SysUtils, TSInfoFiles, TSInfoConsts, TSInfoTypes, TSDSLTypes;
+  Classes, SysUtils, TSInfoFiles, TSInfoConsts, TSInfoTypes, TSDSLTypes, TSDSLHelpers;
 
 function Name(const Value: String): StrictName;
 function Comment(const Value: String; const Delimeter: String = ''): StrictComment;
@@ -173,7 +173,7 @@ function TreeStructInfo(
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment);
-  //todo: use nodes
+  TSDSLHelpers.AddNodesToTree(TreeStructInfo, Nodes);
 end;
 
 function TreeStructInfo(

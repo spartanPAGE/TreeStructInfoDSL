@@ -12,7 +12,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="8">
       <Item1>
         <Filename Value="..\deps\TreeStructInfo\Source\TSInfoConsts.pp"/>
         <UnitName Value="TSInfoConsts"/>
@@ -37,6 +37,13 @@
         <Filename Value="..\source\tsdsltypes.pas"/>
         <UnitName Value="tsdsltypes"/>
       </Item6>
+      <Item7>
+        <AddToUsesPkgSection Value="False"/>
+      </Item7>
+      <Item8>
+        <Filename Value="..\source\tsdslhelpers.pas"/>
+        <UnitName Value="TSDSLHelpers"/>
+      </Item8>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

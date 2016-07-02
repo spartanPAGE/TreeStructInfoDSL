@@ -8,7 +8,7 @@ interface
 
 uses
   TSInfoConsts, TSInfoFiles, TSInfoTypes, TSInfoUtils, tsdsl, tsdsltypes, 
-  LazarusPackageIntf;
+  TSDSLHelpers, LazarusPackageIntf;
 
 implementation
 

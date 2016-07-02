@@ -184,7 +184,7 @@ function TreeStructInfo(
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment, Nodes);
-  //todo: use attributes
+  TSDSLHelpers.AddAttributesToTree(TreeStructInfo, '', Attributes);
 end;
 
 end.

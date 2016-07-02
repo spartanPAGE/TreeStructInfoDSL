@@ -1,4 +1,3 @@
-![TreeStructInfoDSL](http://treestruct.info/global/img/logo-small.png)<br/>
 *Copyright © Patryk Wertka, spartanPAGE 2016*
 
 **GNU Lesser GPL 3**

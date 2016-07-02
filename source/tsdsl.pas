@@ -104,9 +104,11 @@ begin
 end;
 
 function Attributes(const OpenArray: array of NamedAttribute): NamedAttributes;
+var Index: Integer;
 begin
   SetLength(Attributes, Length(OpenArray));
-  Move(OpenArray[Low(OpenArray)], Attributes[0], Length(OpenArray)*SizeOf(NamedAttribute));
+  for Index := 0 to High(OpenArray) do
+    Attributes[Index] := OpenArray[Index];
 end;
 
 
@@ -146,9 +148,11 @@ begin
 end;
 
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;
+var Index: Integer;
 begin
   SetLength(Nodes, Length(OpenArray));
-  Move(OpenArray[Low(OpenArray)], Nodes[0], Length(OpenArray)*SizeOf(NamedNode));
+  for Index := 0 to High(OpenArray) do
+    Nodes[Index] := OpenArray[Index];
 end;
 
 function TreeStructInfo(const Name: StrictName): TTSInfoTree;

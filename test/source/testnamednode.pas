@@ -17,6 +17,7 @@ type
     procedure NamedNodeWithComment;
     procedure NamedNodeWithCommentAndFlatChildren;
     procedure NamedNodeWithCommentAndFlatChildrenAndAttributes;
+    procedure NestedNodes;
   end;
 
 implementation
@@ -93,6 +94,24 @@ begin
   AssertEquals(NNode.Attributes[1].Name.Value,    '#2 attr name');
   AssertEquals(NNode.Attributes[1].Comment.Value, '#2 attr comment');
   AssertEquals(NNode.Attributes[1].Content.Value, '#2 attr content');
+end;
+
+procedure NamedNodeTestCase.NestedNodes;
+begin
+  NNode := Node(
+    Name('regular'),
+    Comment('nothing interesting'),
+    Nodes([
+      Node(
+        Name('problematic'),
+        Comment('attrs problem'),
+        Nodes([]),
+        Attributes([
+          //Attribute(Name('thats enough'))
+        ])
+      )
+    ])
+  );
 end;
 
 

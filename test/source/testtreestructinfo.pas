@@ -11,6 +11,7 @@ type TreeStructInfoTestCase = class(TTestCase)
   published
     procedure NamedTree;
     procedure NamedTreeWithComment;
+    procedure NamedTreeWithCommentAndEmptyNodesArray;
   end;
 
 
@@ -40,6 +41,10 @@ begin
   end;
 end;
 
+procedure TreeStructInfoTestCase.NamedTreeWithCommentAndEmptyNodesArray;
+begin
+  //todo;
+end;
 
 
 initialization

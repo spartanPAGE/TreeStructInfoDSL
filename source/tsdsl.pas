@@ -27,6 +27,17 @@ function TreeStructInfo(
   const Name:    StrictName;
   const Comment: StrictComment
 ): TTSInfoTree; overload;
+function TreeStructInfo(
+  const Name:    StrictName;
+  const Comment: StrictComment;
+  const Nodes:   array of NamedNode
+): TTSInfoTree; overload;
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Comment:    StrictComment;
+  const Nodes:      array of NamedNode;
+  const Attributes: array of NamedAttribute
+): TTSInfoTree; overload;
 
 implementation
 
@@ -83,6 +94,27 @@ function TreeStructInfo(
 begin
   TreeStructInfo := TreeStructInfo(Name);
   TreeStructInfo.WriteTreeComment(Comment.Value, '');
+end;
+
+function TreeStructInfo(
+  const Name:    StrictName;
+  const Comment: StrictComment;
+  const Nodes:   array of NamedNode
+): TTSInfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name, Comment);
+  //todo: use nodes
+end;
+
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Comment:    StrictComment;
+  const Nodes:      array of NamedNode;
+  const Attributes: array of NamedAttribute
+): TTSInfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name, Comment, Nodes);
+  //todo: use attributes
 end;
 
 end.

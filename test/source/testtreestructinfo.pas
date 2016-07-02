@@ -14,7 +14,7 @@ type TreeStructInfoTestCase = class(TTestCase)
     procedure NamedTreeWithCommentAndEmptyNodesArray;
     procedure NamedTreeWithFlatChildNodes;
     procedure NamedTreeWithAttributes;
-    procedure NamedTreeWithNodesContainingAttributes;
+    procedure TreeWithNestedChildren;
   end;
 
 
@@ -118,26 +118,36 @@ begin
   end;
 end;
 
-procedure TreeStructInfoTestCase.NamedTreeWithNodesContainingAttributes;
+procedure TreeStructInfoTestCase.TreeWithNestedChildren;
 begin
   with TreeStructInfo(
-      Name(''),
-      Comment(''),
-      Nodes([
-        Node(
-          Name('#1'),
-          Comment(''),
-          Nodes([]),
-          Attributes([
-            //single attribute: program terminates silently
-            //two attributes: Access Voilation
-            Attribute(Name('#1')){,
-            Attribute(Name('#2'))}
-          ]))
-      ])) do
-  try
+    Name('problematic?'),
+    Comment(''),
+    Nodes([
+      Node(
+        Name('test'),
+        Comment(''),
+        Nodes([]),
+        Attributes([
+          Attribute(
+            Name('attr'),
+            Comment('Example comment'),
+            Content('Example content')
+          )
+        ])
+      )
+    ])
+  )
+  do try
+    AssertEquals(TreeName, 'problematic?');
+
+    AssertEquals(ChildNodeExists('test'),     True);
+    AssertEquals(AttributeExists('test\attr'), True);
+
+    AssertEquals(ReadAttributeComment('test\attr', '', ctDeclaration), 'Example comment');
+    AssertEquals(ReadString('test\attr', ''),                          'Example content');
   finally
-   Free;
+    Free;
   end;
 end;
 

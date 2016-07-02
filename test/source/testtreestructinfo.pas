@@ -13,6 +13,7 @@ type TreeStructInfoTestCase = class(TTestCase)
     procedure NamedTreeWithComment;
     procedure NamedTreeWithCommentAndEmptyNodesArray;
     procedure NamedTreeWithFlatChildNodes;
+    procedure NamedTreeWithAttributes;
   end;
 
 
@@ -83,6 +84,36 @@ begin
     AssertEquals(ReadChildNodeComment('#2 node', '', ctDeclaration), '#2 node comment');
   finally
     Free;
+  end;
+end;
+
+procedure TreeStructInfoTestCase.NamedTreeWithAttributes;
+begin
+  with TreeStructInfo(
+    Name(''),
+    Comment(''),
+    Nodes([]),
+    Attributes([
+      Attribute(
+        Name('#1 attribute'),
+        Comment('#1 attribute comment'),
+        Content('#1 attribute content')),
+      Attribute(
+        Name('#2 attribute'),
+        Comment('#2 attribute comment'),
+        Content('#2 attribute content'))
+    ])) do
+  try
+    AssertEquals(AttributeExists('#1 attribute'), True);
+    AssertEquals(AttributeExists('#2 attribute'), True);
+
+    AssertEquals(ReadAttributeComment('#1 attribute', '', ctDeclaration), '#1 attribute comment');
+    AssertEquals(ReadAttributeComment('#2 attribute', '', ctDeclaration), '#2 attribute comment');
+
+    AssertEquals(ReadString('#1 attribute', ''), '#1 attribute content');
+    AssertEquals(ReadString('#2 attribute', ''), '#2 attribute content');
+  finally
+   Free;
   end;
 end;
 

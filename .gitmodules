@@ -1,0 +1,3 @@
+[submodule "deps/TreeStructInfo"]
+	path = deps/TreeStructInfo
+	url = https://github.com/furious-programming/TreeStructInfo

@@ -9,10 +9,10 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <OtherUnitFiles Value="..\deps\TreeStructInfo\Source;..\source"/>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="5">
+    <Files Count="6">
       <Item1>
         <Filename Value="..\deps\TreeStructInfo\Source\TSInfoConsts.pp"/>
         <UnitName Value="TSInfoConsts"/>
@@ -33,6 +33,10 @@
         <Filename Value="..\source\tsdsl.pas"/>
         <UnitName Value="tsdsl"/>
       </Item5>
+      <Item6>
+        <Filename Value="..\source\tsdsltypes.pas"/>
+        <UnitName Value="tsdsltypes"/>
+      </Item6>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

@@ -41,14 +41,14 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="extestcase.pas"/>
+        <Filename Value="..\source\testtreestructinfo.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ExTestCase"/>
+        <UnitName Value="TestTreeStructInfo"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\source\testcase1.pas"/>
+        <Filename Value="..\source\testnamedattribute.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="TestCase1"/>
+        <UnitName Value="TestNamedAttribute"/>
       </Unit2>
     </Units>
   </ProjectOptions>
@@ -57,7 +57,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\source"/>
+      <OtherUnitFiles Value="..\source;..\..\source"/>
     </SearchPaths>
   </CompilerOptions>
   <Debugging>

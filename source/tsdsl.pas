@@ -5,24 +5,26 @@ unit tsdsl;
 interface
 
 uses
-  Classes, SysUtils, TSInfoFiles, TSInfoConsts, TSInfoTypes;
-
-type StrictName = record
-  Value: String;
-end;
-
-type StrictComment = record
-  Value: String;
-  Delimeter: String;
-end;
+  Classes, SysUtils, TSInfoFiles, TSInfoConsts, TSInfoTypes, TSDSLTypes;
 
 function Name(const Value: String): StrictName;
-
 function Comment(const Value: String; const Delimeter: String = ''): StrictComment;
+function Content(const Value: String): StrictContent;
+
+function Attribute(const Name: StrictName): NamedAttribute; overload;
+function Attribute(
+  const Name:    StrictName;
+  const Comment: StrictComment
+): NamedAttribute; overload;
+function Attribute(
+  const Name:    StrictName;
+  const Comment: StrictComment;
+  const Content: StrictContent
+): NamedAttribute; overload;
 
 function TreeStructInfo(const Name: StrictName): TTSInfoTree; overload;
 function TreeStructInfo(
-  const Name: StrictName;
+  const Name:    StrictName;
   const Comment: StrictComment
 ): TTSInfoTree; overload;
 
@@ -39,6 +41,35 @@ begin
   Comment.Delimeter := Delimeter;
 end;
 
+function Content(const Value: String): StrictContent;
+begin
+  Content.Value := Value;
+end;
+
+function Attribute(const Name: StrictName): NamedAttribute;
+begin
+  Attribute.Name := Name;
+end;
+
+function Attribute(
+  const Name:    StrictName;
+  const Comment: StrictComment
+): NamedAttribute;
+begin
+  Attribute := Attribute(Name);
+  Attribute.Comment := Comment;
+end;
+
+function Attribute(
+  const Name:    StrictName;
+  const Comment: StrictComment;
+  const Content: StrictContent
+): NamedAttribute;
+begin
+  Attribute := Attribute(Name, Comment);
+  Attribute.Content := Content;
+end;
+
 function TreeStructInfo(const Name: StrictName): TTSInfoTree;
 begin
   TreeStructInfo := TTSInfoTree.Create;
@@ -46,7 +77,7 @@ begin
 end;
 
 function TreeStructInfo(
-  const Name: StrictName;
+  const Name:    StrictName;
   const Comment: StrictComment
 ): TTSInfoTree;
 begin

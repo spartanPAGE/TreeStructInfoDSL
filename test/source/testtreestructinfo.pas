@@ -1,4 +1,4 @@
-unit TestCase1;
+unit TestTreeStructInfo;
 
 {$mode objfpc}{$H+}
 

@@ -7,7 +7,7 @@ unit TreeStructInfoDSL;
 interface
 
 uses
-  TSInfoConsts, TSInfoFiles, TSInfoTypes, TSInfoUtils, tsdsl, 
+  TSInfoConsts, TSInfoFiles, TSInfoTypes, TSInfoUtils, tsdsl, tsdsltypes, 
   LazarusPackageIntf;
 
 implementation

@@ -22,6 +22,25 @@ function Attribute(
   const Content: StrictContent
 ): NamedAttribute; overload;
 
+
+function Node(const Name: StrictName): NamedNode;
+function Node(
+  const Name:    StrictName;
+  const Comment: StrictComment
+): NamedNode; overload;
+function Node(
+  const Name:     StrictName;
+  const Comment:  StrictComment;
+  const Children: NamedNodes
+): NamedNode; overload;
+function Node(
+  const Name:       StrictName;
+  const Comment:    StrictComment;
+  const Children:   NamedNodes;
+  const Attributes: NamedAttributes
+): NamedNode; overload;
+
+
 function TreeStructInfo(const Name: StrictName): TTSInfoTree; overload;
 function TreeStructInfo(
   const Name:    StrictName;
@@ -30,13 +49,13 @@ function TreeStructInfo(
 function TreeStructInfo(
   const Name:    StrictName;
   const Comment: StrictComment;
-  const Nodes:   array of NamedNode
+  const Nodes:   NamedNodes
 ): TTSInfoTree; overload;
 function TreeStructInfo(
   const Name:       StrictName;
   const Comment:    StrictComment;
-  const Nodes:      array of NamedNode;
-  const Attributes: array of NamedAttribute
+  const Nodes:      NamedNodes;
+  const Attributes: NamedAttributes
 ): TTSInfoTree; overload;
 
 implementation
@@ -81,6 +100,43 @@ begin
   Attribute.Content := Content;
 end;
 
+
+function Node(const Name: StrictName): NamedNode;
+begin
+  Node.Name := Name;
+end;
+
+function Node(
+  const Name:    StrictName;
+  const Comment: StrictComment
+): NamedNode;
+begin
+  Node := Node(Name);
+  Node.Comment := Comment;
+end;
+
+function Node(
+  const Name:     StrictName;
+  const Comment:  StrictComment;
+  const Children: NamedNodes
+): NamedNode;
+begin
+  Node := Node(Name, Comment);
+  Node.Children := Children;
+end;
+
+function Node(
+  const Name:       StrictName;
+  const Comment:    StrictComment;
+  const Children:   NamedNodes;
+  const Attributes: NamedAttributes
+): NamedNode;
+begin
+  Node := Node(Name, Comment, Children);
+  Node.Attributes := Attributes;
+end;
+
+
 function TreeStructInfo(const Name: StrictName): TTSInfoTree;
 begin
   TreeStructInfo := TTSInfoTree.Create;
@@ -99,7 +155,7 @@ end;
 function TreeStructInfo(
   const Name:    StrictName;
   const Comment: StrictComment;
-  const Nodes:   array of NamedNode
+  const Nodes:   NamedNodes
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment);
@@ -109,8 +165,8 @@ end;
 function TreeStructInfo(
   const Name:       StrictName;
   const Comment:    StrictComment;
-  const Nodes:      array of NamedNode;
-  const Attributes: array of NamedAttribute
+  const Nodes:      NamedNodes;
+  const Attributes: NamedAttributes
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment, Nodes);

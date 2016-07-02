@@ -24,7 +24,6 @@ function Attribute(
 
 function Attributes(const OpenArray: array of NamedAttribute): NamedAttributes;
 
-
 function Node(const Name: StrictName): NamedNode;
 function Node(
   const Name:    StrictName;
@@ -107,7 +106,7 @@ end;
 function Attributes(const OpenArray: array of NamedAttribute): NamedAttributes;
 begin
   SetLength(Attributes, Length(OpenArray));
-  Move(OpenArray[Low(OpenArray)], Attributes[0], Length(OpenArray));
+  Move(OpenArray[Low(OpenArray)], Attributes[0], Length(OpenArray)*SizeOf(NamedAttribute));
 end;
 
 
@@ -149,7 +148,7 @@ end;
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;
 begin
   SetLength(Nodes, Length(OpenArray));
-  Move(OpenArray[Low(OpenArray)], Nodes[0], Length(OpenArray));
+  Move(OpenArray[Low(OpenArray)], Nodes[0], Length(OpenArray)*SizeOf(NamedNode));
 end;
 
 function TreeStructInfo(const Name: StrictName): TTSInfoTree;

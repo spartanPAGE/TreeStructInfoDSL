@@ -35,7 +35,7 @@
         <PackageName Value="FCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="TreeStructInfoDSLTests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -50,6 +50,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="TestNamedAttribute"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="..\source\testnamednode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TestNamedNode"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

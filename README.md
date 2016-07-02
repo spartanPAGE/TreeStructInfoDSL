@@ -3,7 +3,8 @@
 ##### - __todo(motivations, example usage)__
 
 ## 2. How to install
-##### - __todo(from cloning the repo to including it in a project)__
+##### ```$ git clone --recursive https://github.com/spartanPAGE/TreeStructInfoDSL``` 
+##### __todo(how to include in project, how to integrate with existing )__
 
 ## 3. How to use
 ##### - __todo(tutorials link)__

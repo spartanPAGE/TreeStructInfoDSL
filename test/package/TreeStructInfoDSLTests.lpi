@@ -57,7 +57,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\source;..\..\source"/>
+      <OtherUnitFiles Value="..\source"/>
     </SearchPaths>
   </CompilerOptions>
   <Debugging>

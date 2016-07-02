@@ -173,7 +173,7 @@ function TreeStructInfo(
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment);
-  TSDSLHelpers.AddNodesToTree(TreeStructInfo, Nodes);
+  TSDSLHelpers.AddNodesToTree(TreeStructInfo, '', Nodes);
 end;
 
 function TreeStructInfo(

@@ -82,7 +82,6 @@ begin
     AssertEquals(ReadChildNodeComment('#1 node', '', ctDeclaration), '#1 node comment');
     AssertEquals(ReadChildNodeComment('#2 node', '', ctDeclaration), '#2 node comment');
   finally
-    ExportTreeToFile('test.tsinfo');
     Free;
   end;
 end;

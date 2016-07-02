@@ -7,24 +7,43 @@ interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, TSDSL;
 
-type
-
-  ExTestCase= class(TTestCase)
+type TreeStructInfoTestCase = class(TTestCase)
   published
-    procedure TestHookUp;
+    procedure NamedTree;
+    procedure NamedTreeWithComment;
   end;
+
+
 
 implementation
 
-procedure ExTestCase.TestHookUp;
+procedure TreeStructInfoTestCase.NamedTree;
 begin
-  assert(TSDSL.test = 42);
+  with TreeStructInfo(Name('tree name')) do
+  try
+    AssertEquals(TreeName, 'tree name');
+  finally
+    Free;
+  end;
+end;
+
+procedure TreeStructInfoTestCase.NamedTreeWithComment;
+begin
+  with TreeStructInfo(
+       Name('tree name'),
+       Comment('tree comment')) do
+  try
+    AssertEquals(TreeName,    'tree name');
+    AssertEquals(ReadTreeComment(''), 'tree comment');
+  finally
+    Free;
+  end;
 end;
 
 
 
 initialization
 
-  RegisterTest(ExTestCase);
+  RegisterTest(TreeStructInfoTestCase);
 end.
 

@@ -40,16 +40,16 @@ begin
     GluedPath := GluePath(Path, NNode.Name.Value);
     with Tree do
     begin
-      CreateChildNode(Path, False, NNode.Name.Value);
+      CreateChildNode(Path, NNode.IsRef, NNode.Name.Value);
       WriteChildNodeComment(
         GluedPath,
-        NNode.Comment.DeclarationValue,
+        NNode.Comment.Declaration.Value,
         NNode.Comment.Delimeter,
         ctDeclaration
       );
       WriteChildNodeComment(
         GluedPath,
-        NNode.Comment.DefinitionValue,
+        NNode.Comment.Definition.Value,
         NNode.Comment.Delimeter,
         ctDefinition
       );
@@ -71,16 +71,16 @@ begin
     GluedPath := GluePath(Path, Attr.Name.Value);
     with Tree do
     begin
-      CreateAttribute(Path, False, Attr.Name.Value);
+      CreateAttribute(Path, Attr.IsRef, Attr.Name.Value);
       WriteAttributeComment(
         GluedPath,
-        Attr.Comment.DeclarationValue,
+        Attr.Comment.Declaration.Value,
         Attr.Comment.Delimeter,
         ctDeclaration
       );
       WriteAttributeComment(
         GluedPath,
-        Attr.Comment.DefinitionValue,
+        Attr.Comment.Definition.Value,
         Attr.Comment.Delimeter,
         ctDefinition
       );

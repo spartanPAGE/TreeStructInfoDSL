@@ -11,6 +11,9 @@ function Name(const Value: String): StrictName;
 function Comment(const Value: String; const Delimeter: String = ''): StrictComment;
 function Content(const Value: String): StrictContent;
 
+function DeclarationComment(const Value: String; const Delimeter: String = ''): StrictDeclarationComment;
+function DefinitionComment(const Value: String; const Delimeter: String = ''): StrictDefinitionComment;
+
 function Attribute(const Name: StrictName): NamedAttribute; overload;
 function Attribute(
   const Name:    StrictName;
@@ -22,7 +25,34 @@ function Attribute(
   const Content: StrictContent
 ): NamedAttribute; overload;
 
+function RefAttribute(const Name: StrictName): NamedAttribute;
+function RefAttribute(
+  const Name:    StrictName;
+  const Content: StrictContent
+): NamedAttribute;
+function RefAttribute(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment
+): NamedAttribute;
+function RefAttribute(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Content:            StrictContent
+): NamedAttribute;
+function RefAttribute(
+  const Name:              StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment: StrictDefinitionComment
+): NamedAttribute;
+function RefAttribute(
+  const Name:              StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment: StrictDefinitionComment;
+  const Content:            StrictContent
+): NamedAttribute;
+
 function Attributes(const OpenArray: array of NamedAttribute): NamedAttributes;
+
 
 function Node(const Name: StrictName): NamedNode;
 function Node(
@@ -79,9 +109,22 @@ begin
   Content.Value := Value;
 end;
 
+function DeclarationComment(const Value: String; const Delimeter: String): StrictDeclarationComment;
+begin
+  DeclarationComment.Value     := Value;
+  DeclarationComment.Delimeter := Delimeter;
+end;
+
+function DefinitionComment(const Value: String; const Delimeter: String): StrictDefinitionComment;
+begin
+  DefinitionComment.Value     := Value;
+  DefinitionComment.Delimeter := Delimeter;
+end;
+
 function Attribute(const Name: StrictName): NamedAttribute;
 begin
-  Attribute.Name := Name;
+  Attribute.IsRef := False;
+  Attribute.Name  := Name;
 end;
 
 function Attribute(
@@ -90,8 +133,8 @@ function Attribute(
 ): NamedAttribute;
 begin
   Attribute := Attribute(Name);
-  Attribute.Comment.DeclarationValue := Comment.Value;
-  Attribute.Comment.Delimeter        := Comment.Delimeter;
+  Attribute.Comment.Declaration.Value := Comment.Value;
+  Attribute.Comment.Delimeter         := Comment.Delimeter;
 end;
 
 function Attribute(
@@ -102,6 +145,61 @@ function Attribute(
 begin
   Attribute := Attribute(Name, Comment);
   Attribute.Content := Content;
+end;
+
+function RefAttribute(const Name: StrictName): NamedAttribute;
+begin
+  RefAttribute.IsRef := True;
+  RefAttribute.Name  := Name;
+end;
+
+function RefAttribute(
+  const Name:    StrictName;
+  const Content: StrictContent
+): NamedAttribute;
+begin
+  RefAttribute         := RefAttribute(Name);
+  RefAttribute.Content := Content;
+end;
+
+function RefAttribute(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment
+): NamedAttribute;
+begin
+  RefAttribute                     := RefAttribute(Name);
+  RefAttribute.Comment.Declaration := DeclarationComment;
+end;
+
+function RefAttribute(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Content:            StrictContent
+): NamedAttribute;
+begin
+  RefAttribute         := RefAttribute(Name, DeclarationComment);
+  RefAttribute.Content := Content;
+end;
+
+function RefAttribute(
+  const Name:              StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment: StrictDefinitionComment
+): NamedAttribute;
+begin
+  RefAttribute                    := RefAttribute(Name, DeclarationComment);
+  RefAttribute.Comment.Definition := DefinitionComment;
+end;
+
+function RefAttribute(
+  const Name:              StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment: StrictDefinitionComment;
+  const Content:            StrictContent
+): NamedAttribute;
+begin
+  RefAttribute         := RefAttribute(Name, DeclarationComment, DefinitionComment);
+  RefAttribute.Content := Content;
 end;
 
 function Attributes(const OpenArray: array of NamedAttribute): NamedAttributes;
@@ -115,7 +213,8 @@ end;
 
 function Node(const Name: StrictName): NamedNode;
 begin
-  Node.Name := Name;
+  Node.IsRef := False;
+  Node.Name  := Name;
 end;
 
 function Node(
@@ -124,8 +223,8 @@ function Node(
 ): NamedNode;
 begin
   Node := Node(Name);
-  Node.Comment.DeclarationValue := Comment.Value;
-  Node.Comment.Delimeter        := Comment.Delimeter;
+  Node.Comment.Declaration.Value := Comment.Value;
+  Node.Comment.Delimeter         := Comment.Delimeter;
 end;
 
 function Node(

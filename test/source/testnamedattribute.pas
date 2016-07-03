@@ -36,8 +36,8 @@ begin
     Comment('attr comment')
   );
 
-  AssertEquals(Attr.Name.Value,               'attr name');
-  AssertEquals(Attr.Comment.DeclarationValue, 'attr comment');
+  AssertEquals(Attr.Name.Value,                'attr name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'attr comment');
 end;
 
 procedure NamedAttributeTestCase.AttributeWithNameCommentAndContent;
@@ -48,9 +48,9 @@ begin
     Content('attr content')
   );
 
-  AssertEquals(Attr.Name.Value,               'attr name');
-  AssertEquals(Attr.Comment.DeclarationValue, 'attr comment');
-  AssertEquals(Attr.Content.Value,            'attr content');
+  AssertEquals(Attr.Name.Value,                'attr name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'attr comment');
+  AssertEquals(Attr.Content.Value,             'attr content');
 end;
 
 

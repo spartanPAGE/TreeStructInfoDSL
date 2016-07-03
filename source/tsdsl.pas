@@ -68,6 +68,10 @@ function Node(
   const Children: NamedNodes
 ): NamedNode;
 function Node(
+  const Name: StrictName;
+  const Attributes: NamedAttributes
+): NamedNode;
+function Node(
   const Name:     StrictName;
   const Comment:  StrictComment;
   const Children: NamedNodes
@@ -251,6 +255,15 @@ function Node(
 begin
   Node          := Node(Name);
   Node.Children := Children;
+end;
+
+function Node(
+  const Name: StrictName;
+  const Attributes: NamedAttributes
+): NamedNode;
+begin
+  Node            := Node(Name);
+  Node.Attributes := Attributes;
 end;
 
 function Node(

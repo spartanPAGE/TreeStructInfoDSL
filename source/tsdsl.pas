@@ -88,6 +88,65 @@ function Node(
   const Attributes: NamedAttributes
 ): NamedNode;
 
+function RefNode(const Name: StrictName): NamedNode;
+function RefNode(
+  const Name:     StrictName;
+  const Children: NamedNodes
+): NamedNode;
+function RefNode(
+  const Name:       StrictName;
+  const Attributes: NamedAttributes
+  ): NamedNode;
+function RefNode(
+  const Name:       StrictName;
+  const Children:   NamedNodes;
+  const Attributes: NamedAttributes
+  ): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment
+): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Children:           NamedNodes
+  ): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Attributes:         NamedAttributes
+  ): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Children:           NamedNodes;
+  const Attributes:         NamedAttributes
+  ): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment
+): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Children: NamedNodes
+): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Attributes:         NamedAttributes
+): NamedNode;
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Children:           NamedNodes;
+  const Attributes:         NamedAttributes
+): NamedNode;
+
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;
 
 
@@ -300,6 +359,124 @@ function Node(
 begin
   Node            := Node(Name, Comment, Children);
   Node.Attributes := Attributes;
+end;
+
+function RefNode(const Name: StrictName): NamedNode;
+begin
+  RefNode.IsRef := True;
+  RefNode.Name  := Name;
+end;
+
+function RefNode(
+  const Name:     StrictName;
+  const Children: NamedNodes
+  ): NamedNode;
+begin
+  RefNode          := RefNode(Name);
+  RefNode.Children := Children;
+end;
+
+function RefNode(
+  const Name:       StrictName;
+  const Attributes: NamedAttributes
+  ): NamedNode;
+begin
+  RefNode            := RefNode(Name);
+  RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:       StrictName;
+  const Children:   NamedNodes;
+  const Attributes: NamedAttributes
+  ): NamedNode;
+begin
+  RefNode            := RefNode(Name, Children);
+  RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment
+): NamedNode;
+begin
+  RefNode                     := RefNode(Name);
+  RefNode.Comment.Declaration := DeclarationComment;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Children:           NamedNodes
+  ): NamedNode;
+begin
+  RefNode := RefNode(Name, DeclarationComment);
+  RefNode.Children := Children;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Attributes:         NamedAttributes
+  ): NamedNode;
+begin
+  RefNode            := RefNode(Name, DeclarationComment);
+  RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const Children:           NamedNodes;
+  const Attributes:         NamedAttributes
+  ): NamedNode;
+begin
+  RefNode            := RefNode(Name, DeclarationComment, Children);
+  RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment
+): NamedNode;
+begin
+  RefNode                    := RefNode(Name, DeclarationComment);
+  RefNode.Comment.Definition := DefinitionComment;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Children: NamedNodes
+): NamedNode;
+begin
+  RefNode          := RefNode(Name, DeclarationComment, DefinitionComment);
+  RefNode.Children := Children;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Attributes:         NamedAttributes
+): NamedNode;
+begin
+  RefNode            := RefNode(Name, DeclarationComment, DefinitionComment);
+  RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:               StrictName;
+  const DeclarationComment: StrictDeclarationComment;
+  const DefinitionComment:  StrictDefinitionComment;
+  const Children:           NamedNodes;
+  const Attributes:         NamedAttributes
+): NamedNode;
+begin
+  RefNode := RefNode(Name, DeclarationComment, DefinitionComment, Children);
+  RefNode.Attributes := Attributes;
 end;
 
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;

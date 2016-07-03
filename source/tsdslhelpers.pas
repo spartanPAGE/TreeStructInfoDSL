@@ -10,7 +10,7 @@ uses Classes, SysUtils, TSInfoFiles, TSInfoConsts, TSInfoTypes, TSDSLTypes;
 procedure AddNodesToTree(
   var Tree:    TTSInfoTree;
   const Path:  String;
-  const Nodes: NamedNodes
+  const Nodes: TNamedNodes
 );
 
 procedure AddAttributesToTree(
@@ -30,9 +30,9 @@ implementation
 procedure AddNodesToTree(
   var Tree:    TTSInfoTree;
   const Path:  String;
-  const Nodes: NamedNodes
+  const Nodes: TNamedNodes
 );
-var NNode: NamedNode;
+var NNode: TNamedNode;
 var GluedPath: String;
 begin
   for NNode in Nodes do
@@ -63,7 +63,7 @@ procedure AddAttributesToTree(
   const Path:  String;
   const Attrs: NamedAttributes
 );
-var Attr: NamedAttribute;
+var Attr: TNamedAttribute;
 var GluedPath: String;
 begin
   for Attr in Attrs do

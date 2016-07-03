@@ -7,52 +7,52 @@ interface
 uses
   Classes, SysUtils;
 
-type StrictName = record
+type TStrictName = record
   Value: String;
 end;
 
-type StrictComment = record
-  Value: String;
-  Delimeter: String;
-end;
-
-type StrictDeclarationComment = record
+type TStrictComment = record
   Value: String;
   Delimeter: String;
 end;
 
-type StrictDefinitionComment = record
+type TStrictDeclarationComment = record
   Value: String;
   Delimeter: String;
 end;
 
-type StrictSplittedComment = record
-  Declaration: StrictDeclarationComment;
-  Definition: StrictDefinitionComment;
+type TStrictDefinitionComment = record
+  Value: String;
   Delimeter: String;
 end;
 
-type StrictContent = record
+type TStrictSplittedComment = record
+  Declaration: TStrictDeclarationComment;
+  Definition: TStrictDefinitionComment;
+  Delimeter: String;
+end;
+
+type TStrictContent = record
   Value: String;
 end;
 
-type NamedAttribute = record
-  Name:    StrictName;
-  Comment: StrictSplittedComment;
-  Content: StrictContent;
+type TNamedAttribute = record
+  Name:    TStrictName;
+  Comment: TStrictSplittedComment;
+  Content: TStrictContent;
   IsRef:   Boolean;
 end;
-type NamedAttributes = array of NamedAttribute;
+type NamedAttributes = array of TNamedAttribute;
 
 
-type NamedNode = record
-  Name:       StrictName;
-  Comment:    StrictSplittedComment;
-  Children:   array of NamedNode;
+type TNamedNode = record
+  Name:       TStrictName;
+  Comment:    TStrictSplittedComment;
+  Children:   array of TNamedNode;
   Attributes: NamedAttributes;
   IsRef:      Boolean;
 end;
-type NamedNodes = array of NamedNode;
+type TNamedNodes = array of TNamedNode;
 
 
 implementation

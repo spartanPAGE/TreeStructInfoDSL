@@ -11,7 +11,7 @@ type
 
   NamedNodeTestCase= class(TTestCase)
   private
-    NNode: NamedNode;
+    NNode: TNamedNode;
   published
     procedure NamedNode;
     procedure NamedNodeWithComment;

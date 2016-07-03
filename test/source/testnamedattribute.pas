@@ -11,7 +11,7 @@ type
 
   NamedAttributeTestCase= class(TTestCase)
   private
-    Attr: NamedAttribute;
+    Attr: TNamedAttribute;
   published
     procedure AttributeWithName;
     procedure AttributeWithNameAndComment;

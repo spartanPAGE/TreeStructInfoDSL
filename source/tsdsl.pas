@@ -14,16 +14,20 @@ function Content(const Value: String): StrictContent;
 function DeclarationComment(const Value: String; const Delimeter: String = ''): StrictDeclarationComment;
 function DefinitionComment(const Value: String; const Delimeter: String = ''): StrictDefinitionComment;
 
-function Attribute(const Name: StrictName): NamedAttribute; overload;
+function Attribute(const Name: StrictName): NamedAttribute;
+function Attribute(
+  const Name:    StrictName;
+  const Content: StrictContent
+): NamedAttribute;
 function Attribute(
   const Name:    StrictName;
   const Comment: StrictComment
-): NamedAttribute; overload;
+): NamedAttribute;
 function Attribute(
   const Name:    StrictName;
   const Comment: StrictComment;
   const Content: StrictContent
-): NamedAttribute; overload;
+): NamedAttribute;
 
 function RefAttribute(const Name: StrictName): NamedAttribute;
 function RefAttribute(
@@ -125,6 +129,15 @@ function Attribute(const Name: StrictName): NamedAttribute;
 begin
   Attribute.IsRef := False;
   Attribute.Name  := Name;
+end;
+
+function Attribute(
+  const Name:    StrictName;
+  const Content: StrictContent
+): NamedAttribute;
+begin
+  Attribute         := Attribute(Name);
+  Attribute.Content := Content;
 end;
 
 function Attribute(

@@ -15,6 +15,7 @@ type
   published
     procedure AttributeWithName;
     procedure AttributeWithNameAndComment;
+    procedure AttributeWithNameAndContent;
     procedure AttributeWithNameCommentAndContent;
 
     procedure RefAttributeWithName;
@@ -45,6 +46,17 @@ begin
 
   AssertEquals(Attr.Name.Value,                'attr name');
   AssertEquals(Attr.Comment.Declaration.Value, 'attr comment');
+end;
+
+procedure NamedAttributeTestCase.AttributeWithNameAndContent;
+begin
+  Attr := Attribute(
+    Name('name'),
+    Content('content')
+  );
+
+  AssertEquals(Attr.Name.Value,    'name');
+  AssertEquals(Attr.Content.Value, 'content');
 end;
 
 procedure NamedAttributeTestCase.AttributeWithNameCommentAndContent;

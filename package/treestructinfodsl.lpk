@@ -12,46 +12,35 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="8">
+    <Files Count="4">
       <Item1>
-        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoConsts.pp"/>
-        <UnitName Value="TSInfoConsts"/>
-      </Item1>
-      <Item2>
-        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoFiles.pp"/>
-        <UnitName Value="TSInfoFiles"/>
-      </Item2>
-      <Item3>
-        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoTypes.pp"/>
-        <UnitName Value="TSInfoTypes"/>
-      </Item3>
-      <Item4>
-        <Filename Value="..\deps\TreeStructInfo\Source\TSInfoUtils.pp"/>
-        <UnitName Value="TSInfoUtils"/>
-      </Item4>
-      <Item5>
         <Filename Value="..\source\tsdsl.pas"/>
         <UnitName Value="tsdsl"/>
-      </Item5>
-      <Item6>
-        <Filename Value="..\source\tsdsltypes.pas"/>
-        <UnitName Value="tsdsltypes"/>
-      </Item6>
-      <Item7>
-        <AddToUsesPkgSection Value="False"/>
-      </Item7>
-      <Item8>
-        <Filename Value="..\source\tsdslhelpers.pas"/>
-        <UnitName Value="TSDSLHelpers"/>
-      </Item8>
-    </Files>
-    <RequiredPkgs Count="2">
-      <Item1>
-        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <Filename Value="..\source\tsdsltypes.pas"/>
+        <UnitName Value="tsdsltypes"/>
       </Item2>
+      <Item3>
+        <AddToUsesPkgSection Value="False"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\source\tsdslhelpers.pas"/>
+        <UnitName Value="TSDSLHelpers"/>
+      </Item4>
+    </Files>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="TreeStructInfo"/>
+        <MaxVersion Major="2"/>
+        <MinVersion Major="2" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

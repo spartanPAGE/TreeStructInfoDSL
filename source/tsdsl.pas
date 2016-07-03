@@ -62,18 +62,22 @@ function Node(const Name: StrictName): NamedNode;
 function Node(
   const Name:    StrictName;
   const Comment: StrictComment
-): NamedNode; overload;
+): NamedNode;
+function Node(
+  const Name: StrictName;
+  const Children: NamedNodes
+): NamedNode;
 function Node(
   const Name:     StrictName;
   const Comment:  StrictComment;
   const Children: NamedNodes
-): NamedNode; overload;
+): NamedNode;
 function Node(
   const Name:       StrictName;
   const Comment:    StrictComment;
   const Children:   NamedNodes;
   const Attributes: NamedAttributes
-): NamedNode; overload;
+): NamedNode;
 
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;
 
@@ -241,12 +245,21 @@ begin
 end;
 
 function Node(
+  const Name: StrictName;
+  const Children: NamedNodes
+): NamedNode;
+begin
+  Node          := Node(Name);
+  Node.Children := Children;
+end;
+
+function Node(
   const Name:     StrictName;
   const Comment:  StrictComment;
   const Children: NamedNodes
 ): NamedNode;
 begin
-  Node := Node(Name, Comment);
+  Node          := Node(Name, Comment);
   Node.Children := Children;
 end;
 
@@ -257,7 +270,7 @@ function Node(
   const Attributes: NamedAttributes
 ): NamedNode;
 begin
-  Node := Node(Name, Comment, Children);
+  Node            := Node(Name, Comment, Children);
   Node.Attributes := Attributes;
 end;
 

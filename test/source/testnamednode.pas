@@ -18,6 +18,7 @@ type
     procedure NamedNodeWithChildren;
     procedure NamedNodeWithAttributes;
     procedure NamedNodeWithCommentAndFlatChildren;
+    procedure NamedNodeWithCommentAndAttributes;
     procedure NamedNodeWithCommentAndFlatChildrenAndAttributes;
     procedure NestedNodes;
   end;
@@ -69,7 +70,7 @@ begin
     ])
   );
 
-  AssertEquals(NNode.Name.Value, 'name');
+  AssertEquals(NNode.Name.Value,               'name');
   AssertEquals(NNode.Attributes[0].Name.Value, '#1');
   AssertEquals(NNode.Attributes[1].Name.Value, '#2');
 end;
@@ -90,6 +91,23 @@ begin
 
   AssertEquals(NNode.Children[0].Name.Value, '#1 child');
   AssertEquals(NNode.Children[1].Name.Value, '#2 child');
+end;
+
+procedure NamedNodeTestCase.NamedNodeWithCommentAndAttributes;
+begin
+  NNode := Node(
+    Name('name'),
+    Comment('comment'),
+    Attributes([
+      Attribute(Name('#1')),
+      RefAttribute(Name('#2'))
+    ])
+  );
+
+  AssertEquals(NNode.Name.Value,                'name');
+  AssertEquals(NNode.Comment.Declaration.Value, 'comment');
+  AssertEquals(NNode.Attributes[0].Name.Value,  '#1');
+  AssertEquals(NNode.Attributes[1].Name.Value,  '#2');
 end;
 
 procedure NamedNodeTestCase.NamedNodeWithCommentAndFlatChildrenAndAttributes;

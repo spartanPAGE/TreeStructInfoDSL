@@ -77,6 +77,11 @@ function Node(
   const Children: NamedNodes
 ): NamedNode;
 function Node(
+  const Name:     StrictName;
+  const Comment:  StrictComment;
+  const Attributes: NamedAttributes
+): NamedNode;
+function Node(
   const Name:       StrictName;
   const Comment:    StrictComment;
   const Children:   NamedNodes;
@@ -274,6 +279,16 @@ function Node(
 begin
   Node          := Node(Name, Comment);
   Node.Children := Children;
+end;
+
+function Node(
+  const Name:     StrictName;
+  const Comment:  StrictComment;
+  const Attributes: NamedAttributes
+): NamedNode;
+begin
+  Node            := Node(Name, Comment);
+  Node.Attributes := Attributes;
 end;
 
 function Node(

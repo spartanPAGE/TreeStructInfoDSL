@@ -155,22 +155,35 @@ function RefNode(
 function Nodes(const OpenArray: array of NamedNode): NamedNodes;
 
 
-function TreeStructInfo(const Name: StrictName): TTSInfoTree; overload;
+function TreeStructInfo(const Name: StrictName): TTSInfoTree;
+function TreeStructInfo(
+  const Name:  StrictName;
+  const Nodes: NamedNodes
+): TTSINfoTree;
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Attributes: NamedAttributes
+): TTSINfoTree;
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Nodes:      NamedNodes;
+  const Attributes: NamedAttributes
+): TTSInfoTree;
 function TreeStructInfo(
   const Name:    StrictName;
   const Comment: StrictComment
-): TTSInfoTree; overload;
+): TTSInfoTree;
 function TreeStructInfo(
   const Name:    StrictName;
   const Comment: StrictComment;
   const Nodes:   NamedNodes
-): TTSInfoTree; overload;
+): TTSInfoTree;
 function TreeStructInfo(
   const Name:       StrictName;
   const Comment:    StrictComment;
   const Nodes:      NamedNodes;
   const Attributes: NamedAttributes
-): TTSInfoTree; overload;
+): TTSInfoTree;
 
 implementation
 
@@ -506,6 +519,34 @@ function TreeStructInfo(const Name: StrictName): TTSInfoTree;
 begin
   TreeStructInfo := TTSInfoTree.Create;
   TreeStructInfo.RenameTree(Name.Value);
+end;
+
+function TreeStructInfo(
+  const Name:  StrictName;
+  const Nodes: NamedNodes
+): TTSINfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name);
+  TSDSLHelpers.AddNodesToTree(TreeStructInfo, '', Nodes);
+end;
+
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Attributes: NamedAttributes
+): TTSINfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name);
+  TSDSLHelpers.AddAttributesToTree(TreeStructInfo, '', Attributes);
+end;
+
+function TreeStructInfo(
+  const Name:       StrictName;
+  const Nodes:      NamedNodes;
+  const Attributes: NamedAttributes
+): TTSInfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name, Nodes);
+  TSDSLHelpers.AddAttributesToTree(TreeStructInfo, '', Attributes);
 end;
 
 function TreeStructInfo(

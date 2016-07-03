@@ -15,6 +15,10 @@ type TreeStructInfoTestCase = class(TTestCase)
     procedure NamedTreeWithFlatChildNodes;
     procedure NamedTreeWithAttributes;
     procedure TreeWithNestedChildren;
+
+    procedure TreeWithNodes;
+    procedure TreeWithAttributes;
+    procedure TreeWithNodesAndAttributes;
   end;
 
 
@@ -146,6 +150,69 @@ begin
 
     AssertEquals(ReadAttributeComment('test\attr', '', ctDeclaration), 'Example comment');
     AssertEquals(ReadString('test\attr', ''),                          'Example content');
+  finally
+    Free;
+  end;
+end;
+
+procedure TreeStructInfoTestCase.TreeWithNodes;
+begin
+  with TreeStructInfo(
+    Name('tree with nodes'),
+    Nodes([
+      Node(
+        Name('#1')),
+      RefNode(
+        Name('#2'))
+    ])
+  ) do try
+    AssertEquals(ChildNodeExists('#1'), True);
+    AssertEquals(ChildNodeExists('#2'), True);
+  finally
+    Free;
+  end;
+end;
+
+procedure TreeStructInfoTestCase.TreeWithAttributes;
+begin
+  with TreeStructInfo(
+    Name('tree with nodes'),
+    Attributes([
+      Attribute(
+        Name('#1')),
+      RefAttribute(
+        Name('#2'))
+    ])
+  ) do try
+    AssertEquals(AttributeExists('#1'), True);
+    AssertEquals(AttributeExists('#2'), True);
+  finally
+    Free;
+  end;
+end;
+
+procedure TreeStructInfoTestCase.TreeWithNodesAndAttributes;
+begin
+  with TreeStructInfo(
+    Name('tree with nodes'),
+    Nodes([
+      Node(
+        Name('#1')),
+      RefNode(
+        Name('#2'))
+    ]),
+    Attributes([
+      Attribute(
+        Name('#1')),
+      RefAttribute(
+        Name('#2'))
+    ])
+  ) do try
+    AssertEquals(ChildNodeExists('#1'), True);
+    AssertEquals(ChildNodeExists('#2'), True);
+
+    AssertEquals(AttributeExists('#1'), True);
+    AssertEquals(AttributeExists('#2'), True);
   finally
     Free;
   end;

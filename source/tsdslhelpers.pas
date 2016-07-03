@@ -27,34 +27,46 @@ function GluePath(
 
 implementation
 
+procedure ApplyNodeComments(
+  var Tree:   TTSInfoTree;
+  const Path: String;
+  const Node: TNamedNode
+);
+begin
+  with Tree do
+  begin
+    WriteChildNodeComment(
+      Path,
+      Node.Comment.Declaration.Value,
+      Node.Comment.Delimeter,
+      ctDeclaration
+    );
+    WriteChildNodeComment(
+      Path,
+      Node.Comment.Definition.Value,
+      Node.Comment.Delimeter,
+      ctDefinition
+    );
+  end;
+end;
+
 procedure AddNodesToTree(
   var Tree:    TTSInfoTree;
   const Path:  String;
   const Nodes: TNamedNodes
 );
-var NNode: TNamedNode;
+var Node: TNamedNode;
 var GluedPath: String;
 begin
-  for NNode in Nodes do
+  for Node in Nodes do
   begin
-    GluedPath := GluePath(Path, NNode.Name.Value);
-    with Tree do
-    begin
-      CreateChildNode(Path, NNode.IsRef, NNode.Name.Value);
-      WriteChildNodeComment(
-        GluedPath,
-        NNode.Comment.Declaration.Value,
-        NNode.Comment.Delimeter,
-        ctDeclaration
-      );
-      WriteChildNodeComment(
-        GluedPath,
-        NNode.Comment.Definition.Value,
-        NNode.Comment.Delimeter,
-        ctDefinition
-      );
-    end;
-    AddAttributesToTree(Tree, GluedPath, NNode.Attributes);
+    GluedPath := GluePath(Path, Node.Name.Value);
+
+    Tree.CreateChildNode(Path, Node.IsRef, Node.Name.Value);
+
+    ApplyNodeComments(Tree, GluedPath, Node);
+    AddNodesToTree(Tree, GluedPath, Node.Children);
+    AddAttributesToTree(Tree, GluedPath, Node.Attributes);
   end;
 end;
 

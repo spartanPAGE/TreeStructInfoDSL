@@ -16,6 +16,13 @@ type
     procedure AttributeWithName;
     procedure AttributeWithNameAndComment;
     procedure AttributeWithNameCommentAndContent;
+
+    procedure RefAttributeWithName;
+    procedure RefAttributeWithNameAndContent;
+    procedure RefAttributeWithNameAndDeclComment;
+    procedure RefAttributeWithNameDeclCommentAndContent;
+    procedure RefAttributeWithNameDeclCommentAndDefComment;
+    procedure RefAttributeWithNameDeclCommentDefCommentAndContent;
   end;
 
 implementation
@@ -53,6 +60,77 @@ begin
   AssertEquals(Attr.Content.Value,             'attr content');
 end;
 
+procedure NamedAttributeTestCase.RefAttributeWithName;
+begin
+  Attr := RefAttribute(
+    Name('name')
+  );
+
+  AssertEquals(Attr.Name.Value, 'name');
+end;
+
+procedure NamedAttributeTestCase.RefAttributeWithNameAndContent;
+begin
+  Attr := RefAttribute(
+    Name('name'),
+    Content('content')
+  );
+
+  AssertEquals(Attr.Name.Value,    'name');
+  AssertEquals(Attr.Content.Value, 'content');
+end;
+
+procedure NamedAttributeTestCase.RefAttributeWithNameAndDeclComment;
+begin
+  Attr := RefAttribute(
+    Name('name'),
+    DeclarationComment('decl comment')
+  );
+
+  AssertEquals(Attr.Name.Value,                'name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'decl comment');
+end;
+
+procedure NamedAttributeTestCase.RefAttributeWithNameDeclCommentAndContent;
+begin
+  Attr := RefAttribute(
+    Name('name'),
+    DeclarationComment('decl comment'),
+    Content('content')
+  );
+
+  AssertEquals(Attr.Name.Value,                'name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'decl comment');
+  AssertEquals(Attr.Content.Value,             'content');
+end;
+
+procedure NamedAttributeTestCase.RefAttributeWithNameDeclCommentAndDefComment;
+begin
+  Attr := RefAttribute(
+    Name('name'),
+    DeclarationComment('decl comment'),
+    DefinitionComment('def comment')
+  );
+
+  AssertEquals(Attr.Name.Value,                'name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'decl comment');
+  AssertEquals(Attr.Comment.Definition.Value,  'def comment');
+end;
+
+procedure NamedAttributeTestCase.RefAttributeWithNameDeclCommentDefCommentAndContent;
+begin
+  Attr := RefAttribute(
+    Name('name'),
+    DeclarationComment('decl comment'),
+    DefinitionComment('def comment'),
+    Content('content')
+  );
+
+  AssertEquals(Attr.Name.Value,                'name');
+  AssertEquals(Attr.Comment.Declaration.Value, 'decl comment');
+  AssertEquals(Attr.Comment.Definition.Value,  'def comment');
+  AssertEquals(Attr.Content.Value,             'content');
+end;
 
 initialization
 

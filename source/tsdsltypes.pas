@@ -16,6 +16,12 @@ type StrictComment = record
   Delimeter: String;
 end;
 
+type StrictSplittedComment = record
+  DeclarationValue: String;
+  DefinitionValue: String;
+  Delimeter: String;
+end;
+
 type StrictContent = record
   Value: String;
 end;
@@ -23,7 +29,7 @@ end;
 
 type NamedAttribute = record
   Name:    StrictName;
-  Comment: StrictComment;
+  Comment: StrictSplittedComment;
   Content: StrictContent;
 end;
 type NamedAttributes = array of NamedAttribute;
@@ -31,7 +37,7 @@ type NamedAttributes = array of NamedAttribute;
 
 type NamedNode = record
   Name:       StrictName;
-  Comment:    StrictComment;
+  Comment:    StrictSplittedComment;
   Children:   array of NamedNode;
   Attributes: NamedAttributes;
 end;

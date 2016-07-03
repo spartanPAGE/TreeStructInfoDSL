@@ -90,7 +90,8 @@ function Attribute(
 ): NamedAttribute;
 begin
   Attribute := Attribute(Name);
-  Attribute.Comment := Comment;
+  Attribute.Comment.DeclarationValue := Comment.Value;
+  Attribute.Comment.Delimeter        := Comment.Delimeter;
 end;
 
 function Attribute(
@@ -123,7 +124,8 @@ function Node(
 ): NamedNode;
 begin
   Node := Node(Name);
-  Node.Comment := Comment;
+  Node.Comment.DeclarationValue := Comment.Value;
+  Node.Comment.Delimeter        := Comment.Delimeter;
 end;
 
 function Node(

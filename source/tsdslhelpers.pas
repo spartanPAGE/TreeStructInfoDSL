@@ -38,13 +38,22 @@ begin
   for NNode in Nodes do
   begin
     GluedPath := GluePath(Path, NNode.Name.Value);
-    Tree.CreateChildNode(Path, False, NNode.Name.Value);
-    Tree.WriteChildNodeComment(
-      GluedPath,
-      NNode.Comment.Value,
-      NNode.Comment.Delimeter,
-      ctDeclaration
-    );
+    with Tree do
+    begin
+      CreateChildNode(Path, False, NNode.Name.Value);
+      WriteChildNodeComment(
+        GluedPath,
+        NNode.Comment.DeclarationValue,
+        NNode.Comment.Delimeter,
+        ctDeclaration
+      );
+      WriteChildNodeComment(
+        GluedPath,
+        NNode.Comment.DefinitionValue,
+        NNode.Comment.Delimeter,
+        ctDefinition
+      );
+    end;
     AddAttributesToTree(Tree, GluedPath, NNode.Attributes);
   end;
 end;
@@ -60,14 +69,23 @@ begin
   for Attr in Attrs do
   begin
     GluedPath := GluePath(Path, Attr.Name.Value);
-    Tree.CreateAttribute(Path, False, Attr.Name.Value);
-    Tree.WriteAttributeComment(
-      GluedPath,
-      Attr.Comment.Value,
-      Attr.Comment.Delimeter,
-      ctDeclaration
-    );
-    Tree.WriteString(GluedPath, Attr.Content.Value);
+    with Tree do
+    begin
+      CreateAttribute(Path, False, Attr.Name.Value);
+      WriteAttributeComment(
+        GluedPath,
+        Attr.Comment.DeclarationValue,
+        Attr.Comment.Delimeter,
+        ctDeclaration
+      );
+      WriteAttributeComment(
+        GluedPath,
+        Attr.Comment.DefinitionValue,
+        Attr.Comment.Delimeter,
+        ctDefinition
+      );
+      WriteString(GluedPath, Attr.Content.Value);
+    end;
   end;
 end;
 

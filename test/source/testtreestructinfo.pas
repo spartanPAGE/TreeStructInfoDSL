@@ -129,9 +129,19 @@ begin
     Comment(''),
     Nodes([
       Node(
-        Name('test'),
+        Name('problematic'),
         Comment(''),
-        Nodes([]),
+        Nodes([
+          RefNode(
+            Name('test'),
+            DeclarationComment('#test declaration comment'),
+            Attributes([
+              Attribute(
+                Name('test attribute')
+              )
+            ])
+          )
+        ]),
         Attributes([
           Attribute(
             Name('attr'),
@@ -145,11 +155,15 @@ begin
   do try
     AssertEquals(TreeName, 'problematic?');
 
-    AssertEquals(ChildNodeExists('test'),     True);
-    AssertEquals(AttributeExists('test\attr'), True);
+    AssertEquals(ChildNodeExists('problematic'),      True);
+    AssertEquals(AttributeExists('problematic\attr'), True);
 
-    AssertEquals(ReadAttributeComment('test\attr', '', ctDeclaration), 'Example comment');
-    AssertEquals(ReadString('test\attr', ''),                          'Example content');
+    AssertEquals(ReadAttributeComment('problematic\attr', '', ctDeclaration), 'Example comment');
+    AssertEquals(ReadString('problematic\attr', ''),                          'Example content');
+
+    AssertEquals(ChildNodeExists('problematic\test'),                         True);
+    AssertEquals(ReadChildNodeComment('problematic\test', '', ctDeclaration), '#test declaration comment');
+    AssertEquals(AttributeExists('problematic\test\test attribute'),          True);
   finally
     Free;
   end;

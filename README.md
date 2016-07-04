@@ -71,6 +71,40 @@ begin
 end;
 ```
 
+alternatively:
+```delphi
+with TreeStructInfo(
+  Name('example'),
+  Comment('Example tree'),
+ 
+  Elements([
+    Node(
+      Name('normal-node'),
+      Comment('normal comment')),
+ 
+    RefNode(
+      Name('referenced-node'),
+      DeclarationComment('declaration comment'),
+      DefinitionComment('definition comment'))
+ 
+    Attribute(
+      Name('attribute'),
+      Comment('normal comment'),
+      Content('normal attribute value')),
+ 
+    RefAttribute(
+      Name('referenced attribute'),
+      DeclarationComment('declaration comment'),
+      DefinitionComment('definition comment'),
+      Content('referenced attribute value'))
+  ])
+) do
+begin
+  ExportTreeToFile('tsidsl.tsinfo');
+  Free;
+end;
+```
+
 ## 2. How to install
 ```$ git clone --recursive https://github.com/spartanPAGE/TreeStructInfoDSL``` 
 
@@ -98,8 +132,34 @@ TreeStructInfo(
       Comment('(im talking about separation of nodes and attributes)'),
       Content('There will be none in a near future!')),
 
-      RefAttribute(
-        Name('...'))
+    RefAttribute(
+      Name('...'))
+  ])
+)
+```
+
+alternatively:
+```delphi
+TreeStructInfo(
+  Name('DSL!'),
+  Comment('Well, it is not exatcly a DSL. Thats a prothesis. But hey, it works!'),
+  Elements([
+    Node(
+      Name('normal node'),
+      Comment('nested')),
+
+    RefNode(
+      Name('ref node'),
+      DeclarationComment('Want to create a comment for the declaration? Go on.'),
+      DefinitionComment('For a definition? No problem.'))
+
+    Attribute(
+      Name('limitations'),
+      Comment('(im talking about separation of nodes and attributes)'),
+      Content('There will be none in a near future!')),
+
+    RefAttribute(
+      Name('...'))
   ])
 )
 ```

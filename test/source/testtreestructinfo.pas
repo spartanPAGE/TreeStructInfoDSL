@@ -4,8 +4,9 @@ unit TestTreeStructInfo;
 
 interface
 
-uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, TSDSL, TSInfoTypes;
+uses Classes, SysUtils, fpcunit, testregistry,
+     TSInfoTypes,
+     TSDSL, TSDSLTypes;
 
 type TreeStructInfoTestCase = class(TTestCase)
   published
@@ -19,6 +20,8 @@ type TreeStructInfoTestCase = class(TTestCase)
     procedure TreeWithNodes;
     procedure TreeWithAttributes;
     procedure TreeWithNodesAndAttributes;
+
+    procedure TreeWithUnionedContent;
   end;
 
 
@@ -227,6 +230,61 @@ begin
 
     AssertEquals(AttributeExists('#1'), True);
     AssertEquals(AttributeExists('#2'), True);
+  finally
+    Free;
+  end;
+end;
+
+
+procedure TreeStructInfoTestCase.TreeWithUnionedContent;
+begin
+  with TreeStructInfo(
+    Name('unioned'),
+    Elements([
+      Attribute(
+        Name('normal-attr'),
+        Comment('normal comment'),
+        Content('normal value')),
+
+      Node(
+        Name('normal-node'),
+        Comment('normal comment')),
+
+      RefAttribute(
+        Name('ref-attr'),
+        DeclarationComment('declaration comment'),
+        DefinitionComment('definition comment'),
+        Content('ref value')),
+
+      RefNode(
+        Name('ref-node'),
+        DeclarationComment('declaration comment'),
+        DefinitionComment('definition comment'),
+        Elements([
+          Node(
+            Name('nested-node')),
+
+          Attribute(
+            Name('nested-attr'))
+        ]))
+    ])
+  ) do try
+    AssertEquals(TreeName, 'unioned');
+    AssertEquals(AttributeExists('normal-attr'), True);
+    AssertEquals(AttributeExists('ref-attr'), True);
+    AssertEquals(ChildNodeExists('normal-node'), True);
+    AssertEquals(ChildNodeExists('ref-node'), True);
+
+    AssertEquals(ReadAttributeComment('normal-attr', '', ctDeclaration), 'normal comment');
+    AssertEquals(ReadAttributeComment('ref-attr', '', ctDeclaration), 'declaration comment');
+    AssertEquals(ReadAttributeComment('ref-attr', '', ctDefinition), 'definition comment');
+
+    AssertEquals(ReadChildNodeComment('normal-node', '', ctDeclaration), 'normal comment');
+    AssertEquals(ReadChildNodeComment('ref-node', '', ctDeclaration), 'declaration comment');
+    AssertEquals(ReadChildNodeComment('ref-node', '', ctDefinition), 'definition comment');
+
+    AssertEquals(ChildNodeExists('ref-node\nested-node'), True);
+    AssertEquals(AttributeExists('ref-node\nested-attr'), True);
   finally
     Free;
   end;

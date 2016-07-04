@@ -16,7 +16,7 @@ procedure AddNodesToTree(
 procedure AddAttributesToTree(
   var Tree:    TTSInfoTree;
   const Path:  String;
-  const Attrs: NamedAttributes
+  const Attrs: TNamedAttributes
 );
 
 function GluePath(
@@ -73,7 +73,7 @@ end;
 procedure AddAttributesToTree(
   var Tree:    TTSInfoTree;
   const Path:  String;
-  const Attrs: NamedAttributes
+  const Attrs: TNamedAttributes
 );
 var Attr: TNamedAttribute;
 var GluedPath: String;

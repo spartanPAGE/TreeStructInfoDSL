@@ -55,7 +55,7 @@ function RefAttribute(
   const Content:            TStrictContent
 ): TNamedAttribute;
 
-function Attributes(const OpenArray: array of TNamedAttribute): NamedAttributes;
+function Attributes(const OpenArray: array of TNamedAttribute): TNamedAttributes;
 
 
 function Node(const Name: TStrictName): TNamedNode;
@@ -64,17 +64,21 @@ function Node(
   const Comment: TStrictComment
 ): TNamedNode;
 function Node(
-  const Name: TStrictName;
+  const Name:     TStrictName;
   const Children: TNamedNodes
 ): TNamedNode;
 function Node(
-  const Name: TStrictName;
-  const Attributes: NamedAttributes
+  const Name:       TStrictName;
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 function Node(
-  const Name: TStrictName;
-  const Children: TNamedNodes;
-  const Attributes: NamedAttributes
+  const Name:       TStrictName;
+  const Children:   TNamedNodes;
+  const Attributes: TNamedAttributes
+): TNamedNode;
+function Node(
+  const Name:     TStrictName;
+  const Elements: TSievedElements
 ): TNamedNode;
 function Node(
   const Name:     TStrictName;
@@ -82,15 +86,20 @@ function Node(
   const Children: TNamedNodes
 ): TNamedNode;
 function Node(
-  const Name:     TStrictName;
-  const Comment:  TStrictComment;
-  const Attributes: NamedAttributes
+  const Name:       TStrictName;
+  const Comment:    TStrictComment;
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 function Node(
   const Name:       TStrictName;
   const Comment:    TStrictComment;
   const Children:   TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
+): TNamedNode;
+function Node(
+  const Name:     TStrictName;
+  const Comment:  TStrictComment;
+  const Elements: TSievedElements
 ): TNamedNode;
 
 function RefNode(const Name: TStrictName): TNamedNode;
@@ -100,13 +109,17 @@ function RefNode(
 ): TNamedNode;
 function RefNode(
   const Name:       TStrictName;
-  const Attributes: NamedAttributes
-  ): TNamedNode;
+  const Attributes: TNamedAttributes
+): TNamedNode;
 function RefNode(
   const Name:       TStrictName;
   const Children:   TNamedNodes;
-  const Attributes: NamedAttributes
-  ): TNamedNode;
+  const Attributes: TNamedAttributes
+): TNamedNode;
+function RefNode(
+  const Name:     TStrictName;
+  const Elements: TSievedElements
+): TNamedNode;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment
@@ -115,18 +128,23 @@ function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const Children:           TNamedNodes
-  ): TNamedNode;
+): TNamedNode;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
-  const Attributes:         NamedAttributes
-  ): TNamedNode;
+  const Attributes:         TNamedAttributes
+): TNamedNode;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const Children:           TNamedNodes;
-  const Attributes:         NamedAttributes
-  ): TNamedNode;
+  const Attributes:         TNamedAttributes
+): TNamedNode;
+function RefNode(
+  const Name:               TStrictName;
+  const DeclarationComment: TStrictDeclarationComment;
+  const Elements:           TSievedElements
+): TNamedNode;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
@@ -142,17 +160,25 @@ function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const DefinitionComment:  TStrictDefinitionComment;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
 ): TNamedNode;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const DefinitionComment:  TStrictDefinitionComment;
   const Children:           TNamedNodes;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
+): TNamedNode;
+function RefNode(
+  const Name:               TStrictName;
+  const DeclarationComment: TStrictDeclarationComment;
+  const DefinitionComment:  TStrictDefinitionComment;
+  const Elements:           TSievedElements
 ): TNamedNode;
 
 function Nodes(const OpenArray: array of TNamedNode): TNamedNodes;
+
+function Elements(const OpenArray: array of TElementUnion): TSievedElements;
 
 
 function TreeStructInfo(const Name: TStrictName): TTSInfoTree;
@@ -162,12 +188,16 @@ function TreeStructInfo(
 ): TTSINfoTree;
 function TreeStructInfo(
   const Name:       TStrictName;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TTSINfoTree;
 function TreeStructInfo(
   const Name:       TStrictName;
   const Nodes:      TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
+): TTSInfoTree;
+function TreeStructInfo(
+  const Name: TStrictName;
+  const Elements: TSievedElements
 ): TTSInfoTree;
 function TreeStructInfo(
   const Name:    TStrictName;
@@ -182,7 +212,12 @@ function TreeStructInfo(
   const Name:       TStrictName;
   const Comment:    TStrictComment;
   const Nodes:      TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
+): TTSInfoTree;
+function TreeStructInfo(
+  const Name: TStrictName;
+  const Comment:    TStrictComment;
+  const Elements: TSievedElements
 ): TTSInfoTree;
 
 implementation
@@ -305,7 +340,7 @@ begin
   RefAttribute.Content := Content;
 end;
 
-function Attributes(const OpenArray: array of TNamedAttribute): NamedAttributes;
+function Attributes(const OpenArray: array of TNamedAttribute): TNamedAttributes;
 var Index: Integer;
 begin
   SetLength(Attributes, Length(OpenArray));
@@ -341,7 +376,7 @@ end;
 
 function Node(
   const Name: TStrictName;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 begin
   Node            := Node(Name);
@@ -351,11 +386,19 @@ end;
 function Node(
   const Name: TStrictName;
   const Children: TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 begin
   Node            := Node(Name, Children);
   Node.Attributes := Attributes;
+end;
+
+function Node(
+  const Name: TStrictName;
+  const Elements: TSievedElements
+): TNamedNode;
+begin
+  Node := Node(Name, Elements.Nodes, Elements.Attributes);
 end;
 
 function Node(
@@ -371,7 +414,7 @@ end;
 function Node(
   const Name:     TStrictName;
   const Comment:  TStrictComment;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 begin
   Node            := Node(Name, Comment);
@@ -382,11 +425,20 @@ function Node(
   const Name:       TStrictName;
   const Comment:    TStrictComment;
   const Children:   TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TNamedNode;
 begin
   Node            := Node(Name, Comment, Children);
   Node.Attributes := Attributes;
+end;
+
+function Node(
+  const Name: TStrictName;
+  const Comment:    TStrictComment;
+  const Elements: TSievedElements
+): TNamedNode;
+begin
+  Node := Node(Name, Comment, Elements.Nodes, Elements.Attributes);
 end;
 
 function RefNode(const Name: TStrictName): TNamedNode;
@@ -406,7 +458,7 @@ end;
 
 function RefNode(
   const Name:       TStrictName;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
   ): TNamedNode;
 begin
   RefNode            := RefNode(Name);
@@ -416,11 +468,19 @@ end;
 function RefNode(
   const Name:       TStrictName;
   const Children:   TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
   ): TNamedNode;
 begin
   RefNode            := RefNode(Name, Children);
   RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:     TStrictName;
+  const Elements: TSievedElements
+): TNamedNode;
+begin
+  RefNode := RefNode(Name, Elements.Nodes, Elements.Attributes);
 end;
 
 function RefNode(
@@ -445,7 +505,7 @@ end;
 function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
   ): TNamedNode;
 begin
   RefNode            := RefNode(Name, DeclarationComment);
@@ -456,11 +516,20 @@ function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const Children:           TNamedNodes;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
   ): TNamedNode;
 begin
   RefNode            := RefNode(Name, DeclarationComment, Children);
   RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:     TStrictName;
+  const DeclarationComment: TStrictDeclarationComment;
+  const Elements: TSievedElements
+): TNamedNode;
+begin
+  RefNode := RefNode(Name, DeclarationComment, Elements.Nodes, Elements.Attributes);
 end;
 
 function RefNode(
@@ -488,7 +557,7 @@ function RefNode(
   const Name:               TStrictName;
   const DeclarationComment: TStrictDeclarationComment;
   const DefinitionComment:  TStrictDefinitionComment;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
 ): TNamedNode;
 begin
   RefNode            := RefNode(Name, DeclarationComment, DefinitionComment);
@@ -500,11 +569,21 @@ function RefNode(
   const DeclarationComment: TStrictDeclarationComment;
   const DefinitionComment:  TStrictDefinitionComment;
   const Children:           TNamedNodes;
-  const Attributes:         NamedAttributes
+  const Attributes:         TNamedAttributes
 ): TNamedNode;
 begin
   RefNode := RefNode(Name, DeclarationComment, DefinitionComment, Children);
   RefNode.Attributes := Attributes;
+end;
+
+function RefNode(
+  const Name:               TStrictName;
+  const DeclarationComment: TStrictDeclarationComment;
+  const DefinitionComment:  TStrictDefinitionComment;
+  const Elements:           TSievedElements
+): TNamedNode;
+begin
+  RefNode := RefNode(Name, DeclarationComment, DefinitionComment, Elements.Nodes, Elements.Attributes);
 end;
 
 function Nodes(const OpenArray: array of TNamedNode): TNamedNodes;
@@ -513,6 +592,11 @@ begin
   SetLength(Nodes, Length(OpenArray));
   for Index := 0 to High(OpenArray) do
     Nodes[Index] := OpenArray[Index];
+end;
+
+function Elements(const OpenArray: array of TElementUnion): TSievedElements;
+begin
+  Result := SieveElements(OpenArray);
 end;
 
 function TreeStructInfo(const Name: TStrictName): TTSInfoTree;
@@ -532,7 +616,7 @@ end;
 
 function TreeStructInfo(
   const Name:       TStrictName;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TTSINfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name);
@@ -542,11 +626,19 @@ end;
 function TreeStructInfo(
   const Name:       TStrictName;
   const Nodes:      TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Nodes);
   TSDSLHelpers.AddAttributesToTree(TreeStructInfo, '', Attributes);
+end;
+
+function TreeStructInfo(
+  const Name: TStrictName;
+  const Elements: TSievedElements
+): TTSInfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name, Elements.Nodes, Elements.Attributes);
 end;
 
 function TreeStructInfo(
@@ -572,11 +664,20 @@ function TreeStructInfo(
   const Name:       TStrictName;
   const Comment:    TStrictComment;
   const Nodes:      TNamedNodes;
-  const Attributes: NamedAttributes
+  const Attributes: TNamedAttributes
 ): TTSInfoTree;
 begin
   TreeStructInfo := TreeStructInfo(Name, Comment, Nodes);
   TSDSLHelpers.AddAttributesToTree(TreeStructInfo, '', Attributes);
+end;
+
+function TreeStructInfo(
+  const Name: TStrictName;
+  const Comment:    TStrictComment;
+  const Elements: TSievedElements
+): TTSInfoTree;
+begin
+  TreeStructInfo := TreeStructInfo(Name, Comment, Elements.Nodes, Elements.Attributes);
 end;
 
 end.

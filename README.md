@@ -5,6 +5,7 @@ Desired effect:
 
 
 ![Example tree](docs/readme/example-tree.png)
+
 Vanilla TreeStructInfo:
 ```delphi
 with TTSInfoTree.Create do

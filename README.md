@@ -73,6 +73,7 @@ end;
 
 ## 2. How to install
 ```$ git clone --recursive https://github.com/spartanPAGE/TreeStructInfoDSL``` 
+
 For more, check [instalation guide](docs/installation/guide.md)
 
 ## 3. How to use

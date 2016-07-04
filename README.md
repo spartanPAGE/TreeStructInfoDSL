@@ -1,6 +1,72 @@
 # TreeStructInfoDSL
 ## 1. Note about the project
-##### - why? __todo(thats why)__
+##### - why?
+Desired effect: 
+![Example tree](docs/readme/example-tree.png)
+Vanilla TreeStructInfo:
+```delphi
+with TTSInfoTree.Create do
+try
+  RenameTree('example');
+  WriteTreeComment('Example tree', '');
+ 
+  CreateAttribute('', False, 'attribute');
+  WriteString('attribute', 'normal attribute value');
+  WriteAttributeComment('attribute', 'normal comment', '', ctDeclaration);
+ 
+  CreateAttribute('', True, 'referenced attribute');
+  WriteString('referenced attribute', 'referenced attribute value');
+  WriteAttributeComment('referenced attribute', 'declaration comment', '', ctDeclaration);
+  WriteAttributeComment('referenced attribute', 'definition comment', '', ctDefinition);
+ 
+ 
+  CreateChildNode('', False, 'normal-node');
+  WriteChildNodeComment('normal-node', 'normal comment', '', ctDeclaration);
+ 
+  CreateChildNode('', True, 'referenced-node');
+  WriteChildNodeComment('referenced-node', 'declaration comment', '', ctDeclaration);
+  WriteChildNodeComment('referenced-node', 'definition comment', '', ctDefinition);
+finally
+  ExportTreeToFile('vanilla-tsi.tsinfo');
+  Free;
+end;
+```
+
+TreeStructInfoDSL:
+```delphi
+with TreeStructInfo(
+  Name('example'),
+  Comment('Example tree'),
+ 
+  Nodes([
+    Node(
+      Name('normal-node'),
+      Comment('normal comment')),
+ 
+    RefNode(
+      Name('referenced-node'),
+      DeclarationComment('declaration comment'),
+      DefinitionComment('definition comment'))
+  ]),
+ 
+  Attributes([
+    Attribute(
+      Name('attribute'),
+      Comment('normal comment'),
+      Content('normal attribute value')),
+ 
+    RefAttribute(
+      Name('referenced attribute'),
+      DeclarationComment('declaration comment'),
+      DefinitionComment('definition comment'),
+      Content('referenced attribute value'))
+  ])
+) do
+begin
+  ExportTreeToFile('tsidsl.tsinfo');
+  Free;
+end;
+```
 
 ## 2. How to install
 ```$ git clone --recursive https://github.com/spartanPAGE/TreeStructInfoDSL``` 

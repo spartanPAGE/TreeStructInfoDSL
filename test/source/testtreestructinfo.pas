@@ -21,7 +21,7 @@ type TreeStructInfoTestCase = class(TTestCase)
     procedure TreeWithAttributes;
     procedure TreeWithNodesAndAttributes;
 
-    procedure TreeWithUnionedContent;
+    procedure TreeWithUnitedContent;
   end;
 
 
@@ -236,7 +236,7 @@ begin
 end;
 
 
-procedure TreeStructInfoTestCase.TreeWithUnionedContent;
+procedure TreeStructInfoTestCase.TreeWithUnitedContent;
 begin
   with TreeStructInfo(
     Name('unioned'),

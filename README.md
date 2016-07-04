@@ -2,6 +2,8 @@
 ## 1. Note about the project
 ##### - why?
 Desired effect: 
+
+
 ![Example tree](docs/readme/example-tree.png)
 Vanilla TreeStructInfo:
 ```delphi

@@ -774,7 +774,7 @@ end;
 function TreeStructInfo(const Name: TStrictName): TTSInfoTree;
 begin
   TreeStructInfo := TTSInfoTree.Create;
-  TreeStructInfo.RenameTree(Name.Value);
+  TreeStructInfo.TreeName := Name.Value;
 end;
 
 function TreeStructInfo(
